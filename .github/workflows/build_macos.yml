@@ -1,0 +1,74 @@
+name: MacOS
+# on: [push] 
+on: 
+  push:
+    paths:
+      - '*.pro'
+      - 'src/**'
+      - '.github/workflows/build_macos.yml'
+  pull_request:
+    paths:
+      - '*.pro'
+      - 'src/**'
+      - '.github/workflows/build_macos.yml' 
+  
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        app_name: [QtGithubActionDemo]
+        os: [macos-10.15]
+        qt_ver: [5.15.2]
+        ## linux, macos, ios, android, win64, win32  
+        qt_target: [macos]
+        qt_arch: [clang_64]
+    env:
+        app_name: ${{ matrix.app_name }}
+        qt_ver: ${{ matrix.qt_ver }}
+        qt_target: ${{ matrix.qt_target }}
+        ## 搭配使用的模組，請用空格隔開
+        qt_modules: qtbase qtquickcontrols2 qtquickcontrols qtdeclarative qttools
+        archive_name: ${{ matrix.app_name }}_${{ matrix.qt_target }}_Qt${{matrix.qt_ver}}
+    steps:
+      ## 切換至目前提交
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: 'true'
+      ## 配置 python 環境
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      ## 安裝相依的套件
+      # - name:  install library
+      #   run: |
+
+      ## 下載 Qt 編譯環境 
+      - name: Install Qt
+        run: python ./util/ci/get_qt.py
+      ## 建置
+      - name: build source code
+        run: |
+          python ./util/ci/build.py
+      # 打包
+      - name: Package
+        run: |
+          python ./util/ci/deploy.py
+      # 上傳至 github artifacts
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.archive_name }}.zip
+          path: bin/release/${{ env.app_name }}.dmg
+      # 上傳至 github Release 項目 （有上git tag 的commit）
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/release/${{ env.app_name }}.dmg
+          asset_name: ${{ env.archive_name }}.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
