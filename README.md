@@ -186,7 +186,7 @@ QtGithubActionsDemo
 - [ ] IOS 支援 .ips 檔輸出及打包程序 
 - [ ] linux 支援 [appimage](https://appimage.org/) 打包程序 
 - [ ] Windows 支援 [Qt IFW](https://doc.qt.io/qtinstallerframework/ifw-overview.html) or [INNO](https://jrsoftware.org/isinfo.php) 相關 Setup 打包安裝檔程序
-
+- [ ] Support Qt  WebAssembly Platform (wasm)
 
 # 參考資源
 - https://docs.github.com/en/actions

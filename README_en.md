@@ -187,7 +187,7 @@ This repository is the demo example of Qt Framework App on Github Actions
 - [ ] IOS support `.ips` file output and packaged program 
 - [ ] linux support [appimage](https://appimage.org/) package program 
 - [ ] Windows support [Qt IFW](https://doc.qt.io/qtinstallerframework/ifw-overview.html) or [INNO](https://jrsoftware.org/isinfo.php) related setup packaging program
-
+- [ ] Support Qt  WebAssembly Platform (wasm)
 
 # Reference resource
 - https://docs.github.com/en/actions
