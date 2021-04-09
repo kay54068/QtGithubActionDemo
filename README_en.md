@@ -3,16 +3,17 @@
 |-------------------------|-------------------------|
 
 
-QtGithubActionsDemo
+Qt Github Actions Demo
 =======
 
-# 介紹
+# Introduction
 
-此 Repository 為 Qt framework app 於 Github actions 的 Demo 範例
 
-> 目前只支援 qmake , cmake 尚未實現
+This repository is the demo example of Qt Framework App on Github Actions
 
-## 專案資訊
+> Only support QMake, cmake has not been implemented
+
+## Project information
 
 
 | [License][license-link] | [Release][release-link] | [Download][download-link] | [Issues][issues-link] | [Wiki][wiki-links] |
@@ -54,13 +55,13 @@ QtGithubActionsDemo
 [wiki-badge]: https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60 "wiki"
 
 
-[english-link]: https://github.com/kay54068/QtGithubActionDemo/blob/master/README_en.md "english README"
+[english-link]: https://github.com/kay54068/QtGithubActionDemo/blob/master/README_EN.md "english README"
 
 [chinese-link]: https://github.com/kay54068/QtGithubActionDemo/blob/master/README.md "中文 README"
 
 
 
-# 支援作業系統
+# Support operation system
 
 | [Windows][win-link]                   |
 |---------------------------------------|
@@ -88,7 +89,7 @@ QtGithubActionsDemo
 
 
 
-# 支援Qt 版本
+# Support QT version
 
 | Qt version |
 |------------|
@@ -102,7 +103,7 @@ QtGithubActionsDemo
 | 6.0.x      |
 
 
-- Qt 版本搭配 compiler 說明
+- Qt version with compiler description
 
 | Qt version | MSVC     | Mingw   | Linux  | MacOS    | Android                          | IOS      |
 |------------|----------|---------|--------|----------|----------------------------------|----------|
@@ -118,20 +119,20 @@ QtGithubActionsDemo
 
 # Github Action flow
 
-1. 切換至目前提交
-2. 配置 python 環境
-3. 配置所需的系統環境變數
-4. 安裝相依的套件
-5. 下載 Qt 編譯環境 
-6. 建置
-7. 打包
-8. 上傳至 github artifacts
-9. 上傳至 github Release 項目（ 只接受有加 git tag 之 commit）
+1. checkout current commit
+2. Configure the Python environment
+3. Configure the system environment variables
+4. Install the use of the kit
+5. Download QT Compilation Environment 
+6. Build
+7. Package
+8. Upload to GitHub Artifacts
+9. Upload to GitHub Release Item (only contact with Git Tag )
 
-# 使用方式
+# Way of use
 
-## Qt 部份
-- Step 1.  Qt  `yourprofile.pro` profie 新增以下內容
+## Qt part
+- Step 1.  Qt  `yourprofile.pro` profie Added content:
 
    ```py
    CONFIG(debug,debug|release) {
@@ -141,7 +142,7 @@ QtGithubActionsDemo
    }
 
    ```
-- Step 2.  移動source code 至 src 目錄 （選擇性修改)
+- Step 2. Move Source Code to `src` Directory (selective modification)
   
    e.g.
    ```py
@@ -151,44 +152,44 @@ QtGithubActionsDemo
    RESOURCES += src/qml.qrc  
    ```
 
-## Github action 部份
-- Step 1. 將範例專案中以下目錄移至您的Qt 專案
+## Github action Part
+- Step 1. Move the following directory below your QT project
    - util/
    - .github/
-- Step 2. 修改 util/ci/config.py
+- Step 2. modify util/ci/config.py
    ```py
    app_name = 'your app name'
    pro_name = 'your pro file name'
    ```
-- Step 3.依據需前修改 *.yml 的 qt_modules 配置
+- Step 3. Modify * .yml Qt_Modules configuration before needed
 
    ref api path:
-   https://download.qt.io/online/qtsdkrepository/   
+   https://download.qt.io/online/qtsdkrepository/
 
 
 
-# 注意事項
-1. 預設設定github actions 啟動條件為 push / pull_request 後, 若修改以下檔案才觸發自動化流程：
+# Notice
+1. The preset setting GitHub ActionS startup condition is push / pull request, if the following file is modified to trigger the automation process：
    ```
       - '*.pro'
       - 'src/**'
       - '.github/workflows/build_android.yml'
     ```
-    📃 請自行修改 .github/workflows/xxx.yml 的 `on:` key 配置
+    📃 Please modify itself `.github/workflows/*.yml` , `on:` key configuration
 
-2. 若psuh 一個 tag 將觸發所有平台的 actions , 自動執行自動化佈署並產生相關執行檔請至以下連結下載：
+2. If the push will trigger all platform Actions, automation deployment and generates release file, please download:
 
    [download-link]
 
 
 # TODO
-- [ ] 支援 cmake 配置
-- [ ] IOS 支援 .ips 檔輸出及打包程序 
-- [ ] linux 支援 [appimage](https://appimage.org/) 打包程序 
-- [ ] Windows 支援 [Qt IFW](https://doc.qt.io/qtinstallerframework/ifw-overview.html) or [INNO](https://jrsoftware.org/isinfo.php) 相關 Setup 打包安裝檔程序
+- [ ] Support cmake configuration
+- [ ] IOS support `.ips` file output and packaged program 
+- [ ] linux support [appimage](https://appimage.org/) package program 
+- [ ] Windows support [Qt IFW](https://doc.qt.io/qtinstallerframework/ifw-overview.html) or [INNO](https://jrsoftware.org/isinfo.php) related setup packaging program
 
 
-# 參考資源
+# Reference resource
 - https://docs.github.com/en/actions
 - https://github.com/kay54068/qtcreator-doxygen
 - https://github.com/jaredtao/HelloActions-Qt
