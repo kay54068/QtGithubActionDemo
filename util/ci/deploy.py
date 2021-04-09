@@ -1,5 +1,5 @@
 import common as c
-from config import os_name, app_name, pro_file, os_arch, qt_version, archive_name
+from config import os_name, app_name, pro_file, os_arch, qt_version
 import os
 import shutil
 import multiprocessing
@@ -45,11 +45,12 @@ c.run('{}'.format(deploy_cmd))
 
 
 if os_arch == 'mingw' or os_arch == 'msvc':
-
-    archname = '{}.{}'.format(archive_name, 'zip')
-    c.print('>> archive {} from {}'.format(archname, os.path.abspath('bin/release/')))
-    c.delete_extensions_file('bin/release/',('.qmlc','.ilk','.exp','.lib','.pdb','.qml'))
-    c.make_zip('bin/release/', archname, mode='w')
+    archive_name =  os.environ['archive_name']
+    if archive_name:
+        archive_file = '{}.{}'.format(archive_name, 'zip')
+        c.print('>> archive {} from {}'.format(archive_file, os.path.abspath('bin/release/')))
+        c.delete_extensions_file('bin/release/',('.qmlc','.ilk','.exp','.lib','.pdb','.qml'))
+        c.make_zip('bin/release/', archive_file, mode='w')
 
 
 

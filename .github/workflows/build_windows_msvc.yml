@@ -19,7 +19,6 @@ jobs:
     strategy:
       ## 矩陣配置
       matrix:
-        app_name: [QtGithubActionDemo]
         os: [windows-2019]
         # 5.9.9 :   msvc2015
         # 5.10.1 :  msvc2015
@@ -35,14 +34,12 @@ jobs:
         qt_arch: [msvc]
         msvc_version: [2019/Enterprise]
     env:
-        app_name: ${{ matrix.app_name }}
         msvc_version: ${{ matrix.msvc_version }}
         qt_ver: ${{ matrix.qt_ver }}
         qt_target: ${{ matrix.qt_target }}
         qt_arch: ${{ matrix.qt_arch }}
         ## 搭配使用的模組，請用空格隔開
         qt_modules: qtbase qtquickcontrols2 qtquickcontrols qtdeclarative qttools
-        archive_name: ${{ matrix.app_name }}_${{ matrix.qt_target }}_Qt${{matrix.qt_ver}}
     ## 步驟
     steps:
       ## 切換至目前提交
@@ -55,6 +52,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.x"
+      ## set GITHUB environment from config.py 
+      - name: Set environment 
+        shell: bash
+        run: |
+          echo "app_name=`python ./util/ci/env_setup.py appname`" >> $GITHUB_ENV
+          echo "archive_name=`python ./util/ci/env_setup.py archivename`" >> $GITHUB_ENV
       ## 安裝相依的套件
       # - name:  install library
       #   run: |

@@ -18,18 +18,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        app_name: [QtGithubActionDemo]
         os: [macos-10.15]
         qt_ver: [5.15.2]
         qt_target: [macos]
         qt_arch: [clang_64]
     env:
-        app_name: ${{ matrix.app_name }}
         qt_ver: ${{ matrix.qt_ver }}
         qt_target: ${{ matrix.qt_target }}
         ## 搭配使用的模組，請用空格隔開
         qt_modules: qtbase qtquickcontrols2 qtquickcontrols qtdeclarative qttools
-        archive_name: ${{ matrix.app_name }}_${{ matrix.qt_target }}_Qt${{matrix.qt_ver}}
     steps:
       ## 切換至目前提交
       - uses: actions/checkout@v2
@@ -41,6 +38,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.x"
+      ## set GITHUB environment from config.py 
+      - name: Set environment 
+        shell: bash
+        run: |
+          echo "app_name=`python ./util/ci/env_setup.py appname`" >> $GITHUB_ENV
+          echo "archive_name=`python ./util/ci/env_setup.py archivename`" >> $GITHUB_ENV
       ## 安裝相依的套件
       # - name:  install library
       #   run: |
