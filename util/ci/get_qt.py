@@ -2,6 +2,7 @@ import common as c
 from config import qt_modules, qt_version, qt_dir, os_name
 import sys
 import xml.etree.ElementTree as ET
+import shutil
 
 qt_modules_list = list(qt_modules.split())
 
@@ -253,3 +254,9 @@ config = config.replace('licheck_mac', '')
 
 with open(config_name, 'w') as f:
     f.write(config)
+
+c.print('>> Copy qt.conf')
+
+c.print('>> Copy {}'.format('util/cfg/qt.conf', qt_dir+'/bin'))
+
+shutil.copy2('util/cfg/qt.conf', qt_dir+'/bin')

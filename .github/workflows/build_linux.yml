@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        qt_ver: [5.15.2]
+        qt_ver: [5.11.3,5.15.2]
         qt_target: [linux]
         qt_arch: [gcc_64]
     env:
