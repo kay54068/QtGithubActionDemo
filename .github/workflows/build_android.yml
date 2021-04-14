@@ -1,5 +1,5 @@
 name: Android
-# on: [push] 
+# on: [push]
 on: 
   push:
     paths:
@@ -21,7 +21,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        qt_ver: [5.15.2]
+        # only support 5.14 up
+        qt_ver: [5.14.2,5.15.2]
         # android
         qt_target: [android]
         # use ANDROID_ABIS variable to Specifies a list of Android target ABIs. e.g.: armeabi-v7a, arm64-v8a, x86, x86_64

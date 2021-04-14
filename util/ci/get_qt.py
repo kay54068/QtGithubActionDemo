@@ -3,6 +3,7 @@ from config import qt_modules, qt_version, qt_dir, os_name
 import sys
 import xml.etree.ElementTree as ET
 import shutil
+import os
 
 qt_modules_list = list(qt_modules.split())
 
@@ -19,7 +20,7 @@ c.print('>> Downloading Qt {} ({}) for {}'.format(qt_version, qt_modules_list, o
 WIN_MINGW_ARCH = {
             '5.9.9' : 53,
             '5.10.1' : 53,
-            '5.11.3' : 73,
+            '5.11.3' : 53,
             '5.12.10' : 73,
             '5.13.2' : 73,
             '5.14.2' : 73,
@@ -240,23 +241,22 @@ downloadQtPackge()
 
 c.symlink(qt_dir_prefix, qt_dir)
 
-c.print('>> Updating license')
-
 config_name = qt_dir + '/mkspecs/qconfig.pri'
-config = ''
-with open(config_name, 'r') as f:
-    config = f.read()
 
-config = config.replace('Enterprise', 'OpenSource')
-config = config.replace('licheck.exe', '')
-config = config.replace('licheck64', '')
-config = config.replace('licheck_mac', '')
+if os.path.isfile(os.path.abspath(config_name)):
+    config = ''
+    c.print('>> Updating license')
+    with open(config_name, 'r') as f:
+        config = f.read()
 
-with open(config_name, 'w') as f:
-    f.write(config)
+    config = config.replace('Enterprise', 'OpenSource')
+    config = config.replace('licheck.exe', '')
+    config = config.replace('licheck64', '')
+    config = config.replace('licheck_mac', '')
 
-c.print('>> Copy qt.conf')
+    with open(config_name, 'w') as f:
+        f.write(config)
 
-c.print('>> Copy {}'.format('util/cfg/qt.conf', qt_dir+'/bin'))
+c.print('>> Copy {} to {}'.format('util/cfg/qt.conf', str(qt_dir_prefix+'/bin')))
 
-shutil.copy2('util/cfg/qt.conf', qt_dir+'/bin')
+shutil.copy2(str('util/cfg/qt.conf'), str(qt_dir_prefix+'/bin'))

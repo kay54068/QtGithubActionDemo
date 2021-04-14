@@ -1,5 +1,5 @@
 name: Windows-MinGW
-# on: [push] 
+# on: [push]
 on: 
   push:
     paths:
@@ -28,9 +28,9 @@ jobs:
         # 5.14.2 : mingw73
         # 5.15.2 : mingw81
         # 6.0.0 : mingw81
-        qt_ver: [5.15.2]
-        ##  win64_mingw, win32_mingw
-        qt_target: [win32_mingw, win64_mingw]
+        qt_ver: [5.11.3,5.15.2]
+        ##  win64_mingw, win32_mingw  (win64 only support 5.14 up) 
+        qt_target: [win32_mingw]
         qt_arch: [mingw]
     env:
         qt_ver: ${{ matrix.qt_ver }}

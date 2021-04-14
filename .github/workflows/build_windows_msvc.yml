@@ -28,7 +28,7 @@ jobs:
         # 5.14.2 :  msvc2017
         # 5.15.2 :  msvc2019
         # 6.0.0 :   msvc2019
-        qt_ver: [5.15.2]
+        qt_ver: [5.11.3,5.15.2]
         ##  win64_msvc, win32_msvc 
         qt_target: [win32_msvc,win64_msvc]
         qt_arch: [msvc]
